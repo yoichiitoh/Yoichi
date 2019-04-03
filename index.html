@@ -1,0 +1,88 @@
+<!DOCTYPE html> 
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My PWA</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        .form-label {
+            display: block;
+        }
+        .form-input {
+            display: block;
+        }
+        li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<label class="form-label">今日やること</label>
+<input type="text" id="todo" class="form-input">
+<button onclick="submit()">追加</button>
+
+<ul id="list">
+
+</ul>
+
+<script type="text/javascript">
+let todoList = [];
+let ul = document.getElementById('list');
+let idCounter = 0;
+function load() {
+    let str = localStorage.getItem('list')
+    if (str == null) return;
+
+    let list = JSON.parse(str)
+    for (let i = 0 ; i < list.length ; i++) {
+        addItem(list[i].content);
+    }
+}
+function save() {
+    localStorage.setItem('list', JSON.stringify(todoList))
+}
+function submit() {
+    let inputElem = document.getElementById('todo');
+    let todo = inputElem.value.trim();    
+    if (todo.length == 0) {
+        // 何も入力されてないので、追加はしない
+        return;
+    }
+    addItem(todo);
+    inputElem.value = '';
+}
+function addItem(todo) {
+    let id = idCounter++;
+    todoList.push({
+        id: id,
+        content: todo,
+    });
+    let elem = document.createElement('li')
+    elem.innerText = todo;
+    elem.addEventListener('click', () => {
+        removeItemById(id);
+    })
+    ul.appendChild(elem);
+    save();
+}
+function removeItemById(id) {
+    for (let i = 0 ; i < todoList.length ; i++) {
+        if (todoList[i].id == id) {
+            ul.children[i].remove();
+            todoList.splice(i, 1);
+            save()
+            return;
+        }
+    }
+}
+
+// 保存してあれば、復元
+load();
+</script>
+</body>
+</html>

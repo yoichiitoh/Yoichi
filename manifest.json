@@ -1,0 +1,14 @@
+{  
+  "name": "My PWA",  
+  "short_name": "My PWA",  
+  "icons": [    
+    {  
+      "src": "/demo-my-pwa/icon_192x192.png",  
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/demo-my-pwa/",  
+  "display": "standard",
+  "theme_color": "#385b7e",
+  "background_color": "#385b7e"
+}

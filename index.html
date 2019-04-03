@@ -81,6 +81,13 @@ function removeItemById(id) {
     }
 }
 
+// Service workerを入れる
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/demo-my-pwa/sw.js');
+    });
+}
+
 // 保存してあれば、復元
 load();
 </script>

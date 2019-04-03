@@ -8,7 +8,7 @@
     }
   ],
   "start_url": "/demo-my-pwa/",  
-  "display": "standard",
+  "display": "standalone",
   "theme_color": "#385b7e",
   "background_color": "#385b7e"
 }
